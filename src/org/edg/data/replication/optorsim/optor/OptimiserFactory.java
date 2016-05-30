@@ -20,6 +20,8 @@ abstract public class OptimiserFactory {
     private static final int LFU_OPTIMISER = 3;
     private static final int ECO_MODEL_OPTIMISER = 4;
     private static final int ECO_MODEL_OPTIMISER_ZIPF_BASED = 5;
+    private static final int ACO_OPTIMISER = 6;
+    private static final int MOPSO_OPTIMISER = 7;
 
     /**
      * Returns an Optimisable instance based on the parameters input
@@ -47,6 +49,12 @@ abstract public class OptimiserFactory {
 	    
 	case ECO_MODEL_OPTIMISER_ZIPF_BASED:
 	    return new EcoZipfModelOptimiser(site);
+	    
+	case ACO_OPTIMISER:
+	    return new AcoOptimiser(site);
+	    
+	case MOPSO_OPTIMISER:
+//	    return new MopsoOptimiser(site);
 
 	default:
 	    System.out.println("You have picked a non-existent optimiser, please try again.");
@@ -85,6 +93,10 @@ abstract public class OptimiserFactory {
 	    return "Economic Model, Binomial Prediction Function";
 	case ECO_MODEL_OPTIMISER_ZIPF_BASED:
 	    return "Economic Model, Zipf Prediction Function";
+	case ACO_OPTIMISER:
+	    return "Ant colony optimisation Function";
+	case MOPSO_OPTIMISER:
+	    return "Particle Swarm optimisation Function";    
 	}
 	
 	return "Unknown optimiser:"+params.getOptimiser();
