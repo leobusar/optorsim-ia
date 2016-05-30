@@ -1,0 +1,113 @@
+# Useful functions and variables for the functional tests
+
+# Counters for the number of runs and failures per script
+Num_Run=0
+Num_Fail=0
+
+# Colour codes for output
+red="\\033[1;31m"   
+green="\\033[1;32m"
+blue="\\033[1;34m"
+normal="\\033[0;39m"
+
+# Run the simulation with the given parameters file
+function runOptorSim() {
+   # Make sure we have the simulation base set to the correct place.
+   SIMULATION_BASE="$(dirname $0)"/../..
+   SIMULATION_BASE="$(cd $SIMULATION_BASE;pwd)"
+
+   (cd $SIMULATION_BASE;bin/OptorSim.sh $SIMULATION_BASE/examples/test/$1) > $2
+   if [ $? -ne 0 ]; then
+      echo -e "OptorSim failed to run ----------------------------- [${red}FAIL${normal}]"
+      return 1
+   fi
+   Num_Run=$((Num_Run+1))
+   return 0
+}
+
+# Get the list of sites to which jobs have been scheduled.
+# Arg $1 is the OptorSim log file.
+function getSchedulerSites() {
+   SITES=$(sed 's/\@Site/\ /' $1 | awk 'BEGIN{ ORS=";" ; } /Submitting/ {print $7}')
+   echo $SITES
+   return 0   
+}
+
+# Write pass/fail info. Arg $1 is result message, $2 is pass/fail status.
+function writeOutput() {
+   OUTPUT=$1
+   NUM_DASHES=`expr 60 - ${#OUTPUT} - 8`
+   i=0
+   while(( $i < $NUM_DASHES ))
+   do
+      OUTPUT="$OUTPUT-"
+      i=$i+1
+   done
+   echo -e "$OUTPUT [$2]"
+   return 0
+}
+
+# Check if $1==$2 and write appropriate result message. 
+# $3 is the process being tested.
+function evaluate() {
+   if [ "$1" != "$2" ]
+   then
+      OUTPUT="$3 incorrect! "
+      STATUS="${red}FAIL${normal}"
+      echo "   expected \"$2\", but got \"$1\""
+      writeOutput "$OUTPUT" $STATUS
+      return 1
+   else
+      OUTPUT="$3 OK "
+      STATUS="${green}PASS${normal}"
+      writeOutput "$OUTPUT" $STATUS
+      return 0
+   fi
+}
+
+# Check if $1==$2 and if not, give failed status to process $3.
+# Used for evaluating sub-steps of a process. 
+function evalSub() {
+   if [ "$1" != "$2" ]
+   then
+       echo "$3 is incorrect!"
+	return 1
+   else
+      echo "$3 OK..."
+   fi
+   return 0
+}
+
+
+# Routine to extract a value from a statistics output.  Given multiple
+# possibilities, it will return the last one.  Takes three parameters
+#   <object name>  <attribute name>  <file to examine>
+#
+function extractAttribute() {
+
+  # First sed extracts all attibutes for object <Object name>.  All objects
+  # are like this:
+  #  +-Statistics for Site2 taken Tue Dec 16 22:22:05 GMT 2003
+  #  | fileAccesses = 0
+  #  | routedFiles = 0
+  #  | totalJobTime = 58.193
+  #  |
+  # [other object data goes here ...]
+
+  startRE="Statistics for $1 taken"
+  stopRE='^\( \+|\)* *$'
+
+  #  Extraction is in two steps, first sed extracts all attributes for the
+  #  named object (but for no other object).  The second sed pulls out
+  #  the required attribute and removes everything upto and including the
+  #  = sign, leaving the attribute's value.  The final tail is in case
+  #  there are multiple statistics dumped, we take the last one.
+  sed -n "/$startRE/,/$stopRE/p" $3 | \
+      sed -n "/$2/s/.* = //p" | \
+      tail -1
+}
+
+# Used to keep track of the number of failures in a script.
+function incrementFailCounter() {
+   Num_Fail=$(($Num_Fail+1))
+}

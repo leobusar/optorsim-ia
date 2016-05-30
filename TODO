@@ -1,0 +1,22 @@
+===============================================
+= OptorSim - To do ============================
+===============================================
+
+*) add job budgets, i.e. AM bids with upper price limit. Currently AM
+   is price taker and SB are price setters.
+
+*) Model different kinds of jobs for example Monte-Carlo jobs and have
+   new files added to the Grid as the simulation runs.
+
+*) Better modelling of CEs with worker nodes etc.
+
+*) Dynamic Grid where not all resources (CEs, etc) are always available.
+
+TODO on the GUI
+===============
+
+*) Make parameters modifiable from GUI so simulation can be
+   restarted with different params.
+   
+*) Facility to add/remove sites on the Grid using GUI and change
+   resources available.

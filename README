@@ -1,0 +1,115 @@
+===============================================
+= OptorSim - README ===========================
+===============================================
+
+OptorSim is a Grid simulation tool written by the EU DataGrid for the
+purpose of testing replication algorithms.  This file describes the
+contents of the package.  More detailed documentation can be found in
+the userguide and javadoc in the doc/ directory. More information can
+also be found on the OptorSim webpage:
+
+http://cern.ch/edg-wp2/optimization/optorsim.html
+
+
+Brief History
+-------------
+
+2.1 - Bug fixes since 2.0. Slightly more sophisticated file processing / job 
+      execution model.
+
+2.0 - New event-driven time model adopted and completely new GUI, plus bug fixes 
+      since 1.0.1.
+
+1.0.1 - Bug fix release to fix bugs associated with file pinning and 
+	ResourceBroker.
+
+1.0 - Large refactoring of the code to make it more modular and easy
+      to expand. Auction code separated into auctions package. GridTime
+      is used instead of system time. Many more areas cleaned up.
+
+0.6 - Mainly bug fixes, internal release used for benchmark
+      results in Grid2003 paper.
+
+0.5.5 - A new interrupt style for file transfers and background
+        network traffic have been added. Last version before major
+        restructuring.
+
+0.5 - All packages moved to edg-optorsim. Much added functionality 
+      including auctionsim package and improved scheduling. Many new
+      features have been added to the GUI.
+
+0.4 - Many bugs removed.  More comprehensive histograms produced.  Many
+      improvements to the user interface.
+
+0.3 - (Meta-stable release)  This tag was made before the auctionsim was
+      incorporated.  Economic model optimiser added.
+
+0.2 - EU DataGrid architecture adopted.  Replica manager added
+      allowing the construction of basic replica optimisers.
+
+0.1 - Initial conception of the project.  Very basic infrastructure
+      present.  No replication possible.
+
+
+License
+-------
+
+Copyright (c) 2002, 2003, 2004 CERN, ITC-irst, PPARC, on behalf 
+of the EU DataGrid. For license conditions see LICENSE file or
+
+http://www.edg.org/license.html
+
+
+Software Requirements
+---------------------
+
+OptorSim has been tested on i386-Linux systems and MS Windows 2000.
+
+To run OptorSim requires:
+ - Java(TM) 2 SDK: Version 1.4.0 or greater
+ - ant: Version 1.5.0 or greater
+
+Documentation
+-------------
+
+The userguide, containing detailed running instructions and technical
+details can be downloaded from the website or found in doc/ along with
+detailed Javadoc for all classes (in doc/api/).
+
+
+Building/ Installing OptorSim
+-----------------------------
+
+See INSTALL file.
+
+
+Usage
+-----
+
+Optor.csh/sh/bat [parameters file]
+
+If no parameters file is specified the default
+examples/parameters.conf is used. For further instructions see
+documentation. Users must have write access to the current directory
+so output files can be written.
+
+
+Known BUGS
+----------
+
+See BUGS file.
+
+
+Future Plans
+------------
+
+See TODO file.
+
+
+Contact
+-------
+
+The OptorSim external mailing list:
+
+hep-project-grid-optorsim@listbox.cern.ch
+

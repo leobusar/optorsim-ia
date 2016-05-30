@@ -1,0 +1,47 @@
+===============================================
+= OptorSim - Bugs =============================
+===============================================
+
+Some bugs and open questions yet to be resolved.
+
+
+BUGS - unpredictable errors.
+
+1. Future file value evaluation - probabilities too low and where to
+put it.
+
+
+
+QUICK FIXES - dirty hacks that need fixing
+
+None currently known...
+
+
+
+UNWANTED FEATURES - not really errors but we'd rather they weren't
+there
+
+1. File sizes must all be the same if auctions are being used.
+
+2. All network connections use the same fraction of bandwidth no
+matter what the bottleneck is eg
+
+ ---------||---------
+   10Mb       500Mb
+
+If a file is transfered along this link the available bandwidth for
+another transfer across the 500Mb link is 250Mb and not 490Mb.
+
+
+
+OPEN ISSUES - questions needing answers
+
+1. What do we do when there is no winner of a top level auction - can
+the job continue and be successful without one of the files it
+requires?
+
+2. How do we handle more than one CE on a site? Should they have
+separate queues or be treated as one entity?
+
+3. How do we handle more than one SB per site? Can two have/ bid for
+the same file?

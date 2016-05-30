@@ -1,0 +1,61 @@
+===================================================
+= OptorSim - Intstallation and Build Instructions =
+===================================================
+
+These instructions describe how to install OptorSim.  Two forms are
+available: The source distribution comes with the source code and must
+be compiled to install it. The pre-built distribution does not include
+the source code but is pre-compiled and is ready to run.
+
+Software Dependencies
+---------------------
+
+    * Java(TM) 2 SDK: Version 1.4.0 or greater
+    * ant: Version 1.5.0 or greater (to re-build the code after any
+            changes or to run functional tests)
+
+Standard Build
+--------------
+
+The tarball of the most recent version of the code can be downloaded
+from the OptorSim website:
+
+http://cern.ch/edg-wp2/optimization/optorsim.html
+
+Start by unpacking the tarball
+
+ $ tar xvfz optorsim-2.1.tar.gz
+
+or use an archiving package such as WinZip (do not open the file
+directly from the browser but save it to disk first and then open it.)
+
+Change directory to optorsim-2.1/
+
+ $ cd optorsim-2.1/
+
+Set the user path to contain the bin/ directory.  This contains the
+executables to run optorsim and scripts for histogram
+analysis. e.g. for Bash shells
+
+ $ export PATH=$PATH:$PWD/bin
+
+for csh/tcsh:
+
+ $ set path = ($path $PWD/bin)
+
+Optorsim is now ready to run! For \texttt{UNIX} users, there is a
+suite of functional tests available which test the main components of
+the simulation to check everything is working properly. These can be
+run using \texttt{ant} and are best run on an unloaded computer:
+
+ $ ant func-test
+
+If the source code is modified, it can be recompiled using ant:
+
+ $ ant
+
+The JavaDoc can also be compiled with:
+
+ $ ant doc
+
+The resulting html pages are in the doc/api directory.
