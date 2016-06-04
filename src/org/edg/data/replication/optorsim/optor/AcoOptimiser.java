@@ -32,7 +32,7 @@ public class AcoOptimiser extends ReplicatingOptimiser {
     }
 
     /**
-     * Uses the algorithm contained in {@link EconomicZipfStorageElement}
+     * Uses the algorithm contained in {@link AcoStorageElement}
      * to determine whether replication should take place, and if so
      * which file should be deleted.
      */
