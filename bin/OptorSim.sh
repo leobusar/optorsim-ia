@@ -29,5 +29,5 @@ SIMULATION_BASE="$(cd $SIMULATION_BASE;pwd)"
 
 OPTORSIM_CLASSPATH=$SIMULATION_BASE/lib/optorsim.jar:$SIMULATION_BASE/external-lib/jcommon-0.9.5.jar:$SIMULATION_BASE/external-lib/jfreechart-0.9.20.jar
 
-java $JMP -classpath $OPTORSIM_CLASSPATH org.edg.data.replication.optorsim.OptorSimMain $*
+java -d64  $JMP -classpath $OPTORSIM_CLASSPATH org.edg.data.replication.optorsim.OptorSimMain $*
 
