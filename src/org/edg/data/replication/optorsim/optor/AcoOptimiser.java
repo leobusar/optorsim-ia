@@ -43,7 +43,7 @@ public class AcoOptimiser extends ReplicatingOptimiser {
             thisSE = (AcoStorageElement)se;
 
         List deleteableFiles = thisSE.filesToDelete(file);
-        if(worthReplicating(thisSE.evaluateFileWorth(file.fileIndex()),
+        if(worthReplicating(thisSE.evaluateFileWorth(file),
                 deleteableFiles))
             return deleteableFiles;
 
