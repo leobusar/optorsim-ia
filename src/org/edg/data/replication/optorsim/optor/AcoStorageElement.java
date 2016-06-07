@@ -41,20 +41,21 @@ public class AcoStorageElement
 
         // get storage cost of file in the current SE.
         //StorageElement se = file.se();
-        double scost = ((double) file.size()) / (file.size() + getAvailableSpace());
+        double scost = ((double) file.size()) / ((double)file.size() + getAvailableSpace());
 
         /**
          * *Calculate history worth ***
          */
         long dt = OptorSimParameters.getInstance().getDt();
-        double hworthWeight = 0.8;
-        double scostWeight = 0.1;
-        double tcostWeight = 0.02;
+        double hworthWeight = 1;
+        double tcostWeight = 0.07;
+        double scostWeight = 0.25;
+
 
         //take the part of the _accessHistory to be considered in the evaluation
         Map recentHistory = getRecentAccessHistory(dt);
         Map fileCount = new HashMap();
-        int totalAccess = 1; // avoid division by zero in hworth.
+        int totalAccess = 0; // avoid division by zero in hworth.
         int fileAccess;
 
         for (Iterator i = recentHistory.values().iterator(); i.hasNext();) {
@@ -75,15 +76,16 @@ public class AcoStorageElement
         } else {
             fileAccess = 0;
         }
-
-        double hworth = ((double) fileAccess) / totalAccess;
+        double hworth = 1;
+        if (totalAccess!=0)
+            hworth = ((double) fileAccess) / totalAccess;
 
         /**
          * *Calculate transfer cost ***
          */
         double tcost = getAccessCost(file.lfn());
 
-//        System.out.println("**** HWORTH "+ hworth + " TCOST " +(0.01*tcost) +" SCOST: "+ scost+ " AS "+ this.numberOfStoredFiles()); 
+        System.out.println("**** WHWORTH "+ hworthWeight*hworth + " WTCOST " +tcostWeight*(0.02*tcost) +" WSCOST: "+ scostWeight*scost); 
         double value = hworthWeight * hworth + tcostWeight * (0.02) * tcost - scostWeight * scost;
 
         return value;
@@ -95,9 +97,11 @@ public class AcoStorageElement
      * unless the estimated value of the file with
      * <i>fileID</i> is less than the value of the least valuable file.
      *
+     * @param newFile
      * @return The least valuable file on the SE or null if they are all too
      * valuable to delete.
      */
+    
     public List filesToDelete(DataFile newFile) {
         DataFile chosenFile = null;
         Map fileCount = getAllFiles();
@@ -122,9 +126,8 @@ public class AcoStorageElement
                     }
                 }
             }
-            filesToDelete.add(chosenFile);
-            deleteableFileSize += chosenFile.size();
-
+                filesToDelete.add(chosenFile);
+                deleteableFileSize += chosenFile.size();
             if (fileCount.remove(chosenFile.lfn()) == null) {
                 // this means there were no deleteable files left so perhaps
                 // one was pinned during the operation
@@ -132,6 +135,7 @@ public class AcoStorageElement
                         + newFile + " when it should have been possible. Have to use remote i/o");
                 return null;
             }
+            
         } while (deleteableFileSize < newFile.size());
 
         return filesToDelete;

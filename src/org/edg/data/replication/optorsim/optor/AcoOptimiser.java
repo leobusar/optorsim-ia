@@ -41,6 +41,7 @@ public class AcoOptimiser extends ReplicatingOptimiser {
         AcoStorageElement thisSE = null;
         if( se instanceof AcoStorageElement)
             thisSE = (AcoStorageElement)se;
+        System.out.println("**** PotentialWORTH  DeleteableValue "); 
 
         List deleteableFiles = thisSE.filesToDelete(file);
         if(worthReplicating(thisSE.evaluateFileWorth(file),
@@ -59,11 +60,12 @@ public class AcoOptimiser extends ReplicatingOptimiser {
     public DataFile[] getBestFile(String[] lfns, float[] fileFraction) {
 
         OptorSimParameters param = OptorSimParameters.getInstance();
+ //       System.out.println("GGG PotentialWORTH  DeleteableValue "); 
 
-        if( !param.auctionOn())
+//        if( !param.auctionOn())
             return super.getBestFile( lfns, fileFraction);
 
-        DataFile files[] = new DataFile [lfns.length];
+/*        DataFile files[] = new DataFile [lfns.length];
 
         // Auction for each file.
         for(int i=0;i<lfns.length;i++) {
@@ -71,7 +73,7 @@ public class AcoOptimiser extends ReplicatingOptimiser {
         }
 
         return files;
-    }
+*/    }
 
     /**
      * Tests whether the potential replica is more valuable
@@ -89,6 +91,12 @@ public class AcoOptimiser extends ReplicatingOptimiser {
             deleteableFilesValue += file.lastEstimatedValue();
         }
         //TODO > or >=? >= would encourage more replication
+//        System.out.println("**** PotentialWORTH "+ potentialFileWorth + " DeleteableValue " + deleteableFilesValue); 
+        
+/*        if(potentialFileWorth == deleteableFilesValue)
+            if (Math.random()>0.5)
+                return true;
+*/            
         return potentialFileWorth > deleteableFilesValue;
     }
 
