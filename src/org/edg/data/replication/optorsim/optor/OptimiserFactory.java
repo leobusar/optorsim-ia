@@ -54,7 +54,7 @@ abstract public class OptimiserFactory {
 	    return new AcoOptimiser(site);
 	    
 	case MOPSO_OPTIMISER:
-//	    return new MopsoOptimiser(site);
+	    return new MopsoOptimiser(site);
 
 	default:
 	    System.out.println("You have picked a non-existent optimiser, please try again.");

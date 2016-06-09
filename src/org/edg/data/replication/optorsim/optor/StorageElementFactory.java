@@ -73,7 +73,7 @@ public class StorageElementFactory {
 				    return new AcoStorageElement(site, capacity);
 				    
 				case MOPSO_OPTIMISER:
-//				    return new MopsoStorageElement(site);				 
+				    return new MopsoStorageElement(site, capacity);				 
 
 				 default:
 					System.out.println("You have picked a non-existent optimiser, please try again.");
