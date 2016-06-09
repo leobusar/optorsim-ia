@@ -55,8 +55,8 @@ public class AcoStorageElement
         //take the part of the _accessHistory to be considered in the evaluation
         Map recentHistory = getRecentAccessHistory(dt);
         Map fileCount = new HashMap();
-        int totalAccess = 0; // avoid division by zero in hworth.
-        int fileAccess;
+        int totalAccess = 0; 
+        int fileAccess, numFiles=0;
 
         for (Iterator i = recentHistory.values().iterator(); i.hasNext();) {
 
@@ -68,15 +68,17 @@ public class AcoStorageElement
                 fileCount.put(historyFile, new Integer(++count));
             } else {
                 fileCount.put(historyFile, new Integer(1));
+                numFiles++;
             }
             totalAccess++;
         }
         if (fileCount.containsKey(file.lfn())) {
             fileAccess = ((Integer) fileCount.get(file.lfn())).intValue();
         } else {
-            fileAccess = 0;
+            // Un valor por defecto aleatorio entre 0 y 10 para que no sea descartado por uso.
+            fileAccess = 1;//(int) Math.round(10*Math.random()); 
         }
-        double hworth = 1;
+        double hworth = 1.0;
         if (totalAccess!=0)
             hworth = ((double) fileAccess) / totalAccess;
 

@@ -5,11 +5,7 @@ import org.edg.data.replication.optorsim.infrastructure.StorageElement;
 import org.edg.data.replication.optorsim.infrastructure.GridSite;
 
 import org.edg.data.replication.optorsim.infrastructure.OptorSimParameters;
-import org.edg.data.replication.optorsim.auctions.AccessMediator;
-
-import java.util.List;
 import java.util.Iterator;
-
 import java.util.List;
 
 /**
@@ -41,7 +37,8 @@ public class AcoOptimiser extends ReplicatingOptimiser {
         AcoStorageElement thisSE = null;
         if( se instanceof AcoStorageElement)
             thisSE = (AcoStorageElement)se;
-        System.out.println("**** PotentialWORTH  DeleteableValue "); 
+        else 
+            return null;
 
         List deleteableFiles = thisSE.filesToDelete(file);
         if(worthReplicating(thisSE.evaluateFileWorth(file),
@@ -53,27 +50,15 @@ public class AcoOptimiser extends ReplicatingOptimiser {
     }
 
     /**
-     * Starts the auction process if it is to be used, or calls
-     * ReplicatingOptimiser.getBestFile() otherwise. The economic decisions
-     * are made in the subclasses' chooseFileToDelete() methods.
+     * Call ReplicatingOptimiser.getBestFile(). 
+     * 
+     * 
      */
     public DataFile[] getBestFile(String[] lfns, float[] fileFraction) {
 
-        OptorSimParameters param = OptorSimParameters.getInstance();
- //       System.out.println("GGG PotentialWORTH  DeleteableValue "); 
-
-//        if( !param.auctionOn())
             return super.getBestFile( lfns, fileFraction);
 
-/*        DataFile files[] = new DataFile [lfns.length];
-
-        // Auction for each file.
-        for(int i=0;i<lfns.length;i++) {
-            files[i] = AccessMediator.getAM(_site).auction(lfns[i]);
-        }
-
-        return files;
-*/    }
+    }
 
     /**
      * Tests whether the potential replica is more valuable
