@@ -4,20 +4,16 @@ import org.edg.data.replication.optorsim.infrastructure.DataFile;
 import org.edg.data.replication.optorsim.infrastructure.StorageElement;
 import org.edg.data.replication.optorsim.infrastructure.GridSite;
 
-import org.edg.data.replication.optorsim.infrastructure.OptorSimParameters;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * This optimiser makes decisions on replication based on the
- * economic model, using the Zipf-based prediction function.
+ * pheromone ant algorithm.
  * <p>
- * Copyright (c) 2004 CERN, ITC-irst, PPARC, on behalf of the EU DataGrid.
- * For license conditions see LICENSE file or
- * <a href="http://www.edg.org/license.html">http://www.edg.org/license.html</a>
  * <p>
  * @author leobusta
- * @since JDK1.4
+ * @since JDK1.6
  */
 
 public class AcoOptimiser extends ReplicatingOptimiser {

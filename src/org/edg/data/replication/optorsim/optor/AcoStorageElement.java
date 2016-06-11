@@ -8,16 +8,13 @@ import org.edg.data.replication.optorsim.reptorsim.NetworkCost;
 import org.edg.data.replication.optorsim.reptorsim.ReplicaManager;
 
 /**
- * This StorageElement implements a Zipf-based economic model for file
- * replication. Predictions of future file values are based on a Zipf-like
- * distribution of file indices.
+ * This StorageElement implements ant algorithm for file
+ * replication. Predictions of future file values are based on a model
+ * using storage cost, access history and transport cost.
  * <p>
- * Copyright (c) 2002 CERN, ITC-irst, PPARC, on behalf of the EU DataGrid. For
- * license conditions see LICENSE file or
- * <a href="http://www.edg.org/license.html">http://www.edg.org/license.html</a>
  * <p>
- * @author caitrian
- * @since JDK1.4
+ * @author leobusta
+ * @since JDK1.6
  */
 public class AcoStorageElement
         extends AccessHistoryStorageElement {
@@ -144,7 +141,7 @@ public class AcoStorageElement
     }
 
     /**
-     * Calculate aggregated network costs for a single storage element. Uses
+     * Calculate aggregated network costs for a aco storage element. Uses
      * network costs and the Replica Catalog to find the best replica of each
      * file and sums the access costs.
      */
